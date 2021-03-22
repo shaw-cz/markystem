@@ -1,0 +1,89 @@
+/*!
+ * Copyright © 2018-2019 Singularity Lab.
+ * All rights reserved.
+ *
+ * Author: Hivol Lee
+ * Title: index.css
+ * Description: styles for recruitment 2019.
+ * Update: 2019/03/18
+ */
+
+html, body {
+    font-family: -apple-system, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, Segoe UI, Roboto, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#logo {
+    width: auto;
+    height: 10vh;
+}
+
+nav {
+    background-color: #e9ecef;
+    padding: 0 15px;
+    color: #007bff;
+    font-weight: bolder;
+}
+
+nav .navbar-brand span {
+    color: #007bff;
+}
+
+nav ul li {
+    margin: 0 10px;
+    color: #007bff;
+    font-size: 16px;
+    line-height: 84px;
+    text-align: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+#btn_top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #007bff;
+    background-color: #fff;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .12);
+    cursor: pointer;
+    z-index: 5;
+}
+.detail{
+    height: 45vh;
+}
+.createText{
+    font-weight: bold;
+    color: black;
+}
+
+.col-center-block {
+    background: #e3f2fd;
+    opacity: 0.85;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-width: thick;border-color:black
+}
+.large{
+    font-size:1.2em;
+    font-weight: bolder;
+}
