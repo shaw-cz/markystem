@@ -1,4 +1,7 @@
 $().ready(function () {
+    let base_url = "http://10.8.28.164:33333/api"
+    let url_get_task = base_url + "/get_task"
+
     let task_types = {
         "classify_text_radio": "文本单选任务",
         "classify_text_checkbox": "文本多选任务",
@@ -23,7 +26,7 @@ $().ready(function () {
             'Authorization': "Bearer " + window.localStorage.getItem("token") //此处放置请求到的用户token
         },
         type: "get",
-        url: "http://10.8.28.164/api/get_task",
+        url: url_get_task,
         dataType: "JSON",
         success: function (data) {
             var strs = data;
@@ -63,23 +66,17 @@ $().ready(function () {
 
                 console.log(url);
                 // $("#x.thumbnail").attr("href", url+"?id="+strs.data[i].id);
-                var newUrl = encodeURI(url + "?id="+strs.data[i].id + "&title=" + strs.data[i].title)
+                var newUrl = encodeURI(url + "?id=" + strs.data[i].id + "&title=" + strs.data[i].title)
                 $("#a").attr("href", newUrl).attr("id", url + "?id=" + strs.data[i].id);
                 //修改每一个的id
                 $("#x").attr("id", strs.data[i].title);
-
-
             }
         },
-
-
         error: function () {
             alert("验证失败,请检查您的网络设置或与管理人员联系");
         }
 
     })
-
-
 });
 
 

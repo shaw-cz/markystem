@@ -1,9 +1,10 @@
 //获取来自主页的id
 let task_id = getQueryString("id");
 let task_title = window.localStorage.getItem("title")
-let url_submit_classify = "http://10.8.28.164/api/submit_classify/" + task_id
-let url_get_classify = "http://10.8.28.164/api/get_classify/" + task_id
-let url_get_category = "http://10.8.28.164/api/get_category/" + task_id
+let base_url = "http://10.8.28.164:33333/api"
+let url_submit_classify = base_url + "/submit_classify/" + task_id
+let url_get_classify = base_url + "/get_classify/" + task_id
+let url_get_category = base_url + "/get_category/" + task_id
 let authorization = "Bearer " + window.localStorage.getItem("token")
 
 console.log(task_id);
@@ -31,6 +32,7 @@ function fill_data(response) {
     $("#left_count").html(response.data.left_count)
     $("#marked_count").html(response.data.marked_count)
     $("#marked_index").html(response.data.marked_index)
+    if(response.data.marked_index===1){$("#left").addClass("disabled")}else {$("#left").removeClass("disabled")}//第一篇不可点上一页
 }
 
 function save_get_classify(marked_index, to_index) {

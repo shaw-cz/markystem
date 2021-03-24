@@ -1,82 +1,88 @@
+//获取来自主页的id
+let task_id = getQueryString("id");
+let task_title = decodeURI(getQueryString("title"));
+let base_url = "http://10.8.28.164:33333/api"
+let url_submit_abstract = base_url + "/submit_abstract/" + task_id
+let url_get_abstract = base_url + "/get_abstract/" + task_id
+let authorization = "Bearer " + window.localStorage.getItem("token")
+
+console.log(task_title);
+$("#title").html(task_title)
+
+//通过页面传值方法
+function getQueryString(id) {
+    let result = window.location.search.match(new RegExp("[\?\&]" + id + "=([^\&]+)", "i"));
+    if (result == null || result.length < 1) {
+        return "";
+    }
+    return result[1];
+}
+
+//将值填充到具体位置
+function fill_data(response) {
+    $("#content").html(response.data.content)
+    $("#abstract_text").val(response.data.abstract_text)
+    $("#left_count").html(response.data.left_count)
+    $("#marked_count").html(response.data.marked_count)
+    $("#marked_index").html(response.data.marked_index)
+    if (response.data.marked_index === 1) {
+        $("#left").addClass("disabled")
+    } else {
+        $("#left").removeClass("disabled")
+    }//第一篇不可点上一页
+}
+
+function save_get_abstract(marked_index, to_index) {
+    let abstract_text = $("#abstract_text").val();
+    console.log(marked_index);
+    console.log(abstract_text);
+    if (abstract_text === '') {
+        alert("文摘文本为空，请检查后再提交")
+    } else {
+        $.ajax({
+            type: "post",
+            headers: {
+                'Authorization': authorization
+            },
+            url: url_submit_abstract,
+            data: {marked_index: marked_index, abstract_text: abstract_text},
+            dataType: "JSON",
+        }).then($.ajax({
+            type: "post",
+            headers: {
+                'Authorization': authorization
+            },
+            url: url_get_abstract,
+            data: {marked_index: parseInt(to_index)},
+            dataType: "JSON",
+            success: function (response) {
+                fill_data(response)
+            },
+        }))
+    }
+}
+
+function save_abstract(success) {
+    let marked_index = $("#marked_index").text();
+    let abstract_text = $("#abstract_text").val();
+
+    if (abstract_text === '') {
+        alert("文摘文本为空，请检查后再提交")
+    } else {
+        $.ajax({
+            type: "post",
+            headers: {
+                'Authorization': authorization
+            },
+            url: url_submit_abstract,
+            data: {marked_index: marked_index, abstract_text: abstract_text},
+            dataType: "JSON",
+            success: success
+        })
+    }
+}
+
 $().ready(function () {
-    //获取来自主页的id
-    let task_id = getQueryString("id");
-    let task_title = decodeURI(getQueryString("title"));
-    let url_submit_abstract = "http://10.8.28.164/api/submit_abstract/" + task_id
-    let url_get_abstract = "http://10.8.28.164/api/get_abstract/" + task_id
-    let authorization = "Bearer " + window.localStorage.getItem("token")
-
-    console.log(task_title);
-    $("#title").html(task_title)
-    //通过页面传值方法
-    function getQueryString(id) {
-        let result = window.location.search.match(new RegExp("[\?\&]" + id + "=([^\&]+)", "i"));
-        if (result == null || result.length < 1) {
-            return "";
-        }
-        return result[1];
-    }
-
-    //将值填充到具体位置
-    function fill_data(response) {
-        $("#content").html(response.data.content)
-        $("#abstract_text").val(response.data.abstract_text)
-        $("#left_count").html(response.data.left_count)
-        $("#marked_count").html(response.data.marked_count)
-        $("#marked_index").html(response.data.marked_index)
-    }
-
-    function save_get_abstract(marked_index, to_index) {
-        let abstract_text = $("#abstract_text").val();
-        console.log(marked_index);
-        console.log(abstract_text);
-        if (abstract_text === '') {
-            alert("文摘文本为空，请检查后再提交")
-        } else {
-            $.ajax({
-                type: "post",
-                headers: {
-                    'Authorization': authorization
-                },
-                url: url_submit_abstract,
-                data: {marked_index: marked_index, abstract_text: abstract_text},
-                dataType: "JSON",
-            }).then($.ajax({
-                type: "post",
-                headers: {
-                    'Authorization': authorization
-                },
-                url: url_get_abstract,
-                data: {marked_index: parseInt(to_index)},
-                dataType: "JSON",
-                success: function (response) {
-                    fill_data(response)
-                },
-            }))
-        }
-    }
-
-    function save_abstract(success) {
-        let marked_index = $("#marked_index").text();
-        let abstract_text = $("#abstract_text").val();
-
-        if (abstract_text === '') {
-            alert("文摘文本为空，请检查后再提交")
-        } else {
-            $.ajax({
-                type: "post",
-                headers: {
-                    'Authorization': authorization
-                },
-                url: url_submit_abstract,
-                data: {marked_index: marked_index, abstract_text: abstract_text},
-                dataType: "JSON",
-                success: success
-            })
-        }
-    }
-
-
     $.ajax({
         type: "get",
         headers: {
@@ -115,6 +121,7 @@ $().ready(function () {
         } else {
             alert("只能跳转到已标注过的页面")
         }
+        $("#jumpTo").val('');
     })
 
     //暂时保存键，将本页的值回传
