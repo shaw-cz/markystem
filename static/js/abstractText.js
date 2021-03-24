@@ -1,7 +1,7 @@
 //获取来自主页的id
 let task_id = getQueryString("id");
 let task_title = decodeURI(getQueryString("title"));
-let base_url = "http://10.8.28.164:33333/api"
+let base_url = "http://10.8.23.220/api"
 let url_submit_abstract = base_url + "/submit_abstract/" + task_id
 let url_get_abstract = base_url + "/get_abstract/" + task_id
 let authorization = "Bearer " + window.localStorage.getItem("token")

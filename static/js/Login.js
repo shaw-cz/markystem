@@ -1,4 +1,4 @@
-let base_url = "http://10.8.28.164:33333/api"
+let base_url = "http://10.8.23.220/api"
 let url_login = base_url + "/auth/login"
 let url_register = base_url + "/auth/register"
 

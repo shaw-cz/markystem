@@ -1,7 +1,7 @@
 //获取来自主页的id
 let task_id = getQueryString("id");
 let task_title = decodeURI(getQueryString("title"));
-let base_url = "http://10.8.28.164:33333/api"
+let base_url = "http://10.8.23.220/api"
 let url_submit_classify = base_url + "/submit_classify/" + task_id
 let url_get_classify = base_url + "/get_classify/" + task_id
 let url_get_category = base_url + "/get_category/" + task_id

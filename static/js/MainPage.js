@@ -1,5 +1,5 @@
 $().ready(function () {
-    let base_url = "http://10.8.28.164:33333/api"
+    let base_url = "http://10.8.23.220/api"
     let url_get_task = base_url + "/get_task"
 
     let task_types = {
